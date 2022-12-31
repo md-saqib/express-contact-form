@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Send Email</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <form id="email-form">
+      <label for="to">To:</label><br />
+      <input type="text" id="to" name="to" required /><br />
+      <label for="from">From:</label><br />
+      <input type="text" id="from" name="from" required /><br />
+      <label for="subject">Subject:</label><br />
+      <input type="text" id="subject" name="subject" required /><br /><br />
+      <label for="text">Text:</label><br />
+      <textarea id="text" name="text"></textarea><br />
+      <label for="html">HTML:</label><br />
+      <textarea id="html" name="html"></textarea><br /><br />
+      <input type="submit" value="Send Email" />
+    </form>
+
+    <!-- Add a container element to display the message -->
+    <div id="message"></div>
+
+    <script>
+      // Add a submit event listener to the form
+      $("#email-form").on("submit", (event) => {
+        // Prevent the form from submitting
+        event.preventDefault();
+
+        // Create a FormData object with the form data
+        const formData = {
+          to: document.getElementById("to").value,
+          from: document.getElementById("from").value,
+          subject: document.getElementById("subject").value,
+          text: document.getElementById("text").value,
+          html: document.getElementById("html").value,
+        };
+
+        // Use fetch to send a POST request to the server
+        fetch("http://localhost:5000/send-email", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Origin": "*",
+          },
+          body: JSON.stringify(formData),
+        })
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (data) {
+            console.log(data);
+          });
+      });
+    </script>
+  </body>
+</html>
