@@ -81,7 +81,7 @@ app.post("/thoughtbot", (req, res) => {
   const phone = req.body.phone;
   const message = req.body.message;
   formData = {
-    to: "mdsaqib108@gmail.com",
+    to: "hello@thoughtbot.co.in",
     from: "contact.clearpicture@gmail.com",
     subject: "Form submission from thoughtbot.co.in",
     html: emailTemplate(firstName, lastName, email, phone, message, "https://thoughtbot.co.in/img/logo.png", "https://thoughtbot.co.in/"),
