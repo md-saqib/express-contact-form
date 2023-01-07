@@ -74,6 +74,30 @@ app.post("/kshetra-farms", (req, res) => {
     });
 });
 
+app.post("/thoughtbot", (req, res) => {
+  const firstName = req.body.firstName;
+  const lastName = req.body.lastName;
+  const email = req.body.email;
+  const phone = req.body.phone;
+  const message = req.body.message;
+  formData = {
+    to: "mdsaqib108@gmail.com",
+    from: "contact.clearpicture@gmail.com",
+    subject: "Form submission from thoughtbot.co.in",
+    html: emailTemplate(firstName, lastName, email, phone, message, "https://thoughtbot.co.in/img/logo.png", "https://thoughtbot.co.in/"),
+  };
+  sendgrid
+    .send(formData)
+    .then(() => {
+      // If the email was sent successfully, send a response to the client
+      res.status(200).send({ message: "Email sent successfully", success: true });
+    })
+    .catch((error) => {
+      // If there was an error sending the email, send a response to the client
+      res.status(400).send({ message: "Error sending email", error });
+    });
+});
+
 app.listen(port, () => {
   console.log("server running on port", port);
 });
